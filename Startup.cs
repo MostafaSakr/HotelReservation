@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HotelR.Entities;
+using HotelR.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -29,6 +30,8 @@ namespace HotelR
             services.AddMvc();
             var connection = "Password=123;Persist Security Info=True;User ID=task;Initial Catalog=taskDB;Data Source=52.178.217.7";
             services.AddDbContext<HotelReservationContext>(options => options.UseSqlServer(connection));
+            services.AddScoped<IGuestRepo, GuestRepo>();
+            services.AddScoped<IReservationRepo, ReservationRepo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

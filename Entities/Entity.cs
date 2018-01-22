@@ -27,6 +27,7 @@ namespace HotelR.Entities
         public string Name { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
+       
     }
     public class Reservation
     {
@@ -39,7 +40,8 @@ namespace HotelR.Entities
         public int RoomId { get; set; }
         public DateTime ArrivalDate { get; set; }
         public DateTime DepartureDate { get; set; }
-        public int ReservationStatus { get; set; }
+        public string Status { get; set; }
+        public double Fees { get; set; }
     }
     public class Room
     {
@@ -51,5 +53,11 @@ namespace HotelR.Entities
         public double Rate { get; set; }
         public double DepositFeePercentage { get; set; }
         public int CancellationFeeNightsCount { get; set; }
+    }
+    public enum ReservationStatus{
+        Booked = 1,
+        Canceled,
+        CheckedIn,
+        CheckedOut
     }
 }
