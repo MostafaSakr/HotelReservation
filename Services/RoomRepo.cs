@@ -9,7 +9,7 @@ namespace HotelR.Services
     {
         Room Get(string number);
     }
-    public class RoomRepo
+    public class RoomRepo : IRoomRepo
     {
         private HotelReservationContext _context;
         public RoomRepo(HotelReservationContext context)

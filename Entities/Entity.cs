@@ -42,6 +42,10 @@ namespace HotelR.Entities
         public DateTime DepartureDate { get; set; }
         public string Status { get; set; }
         public double Fees { get; set; }
+        public int Days()
+        {
+            return (DepartureDate - ArrivalDate).Days;
+        }
     }
     public class Room
     {
