@@ -24,9 +24,25 @@ namespace HotelR.Controllers
 
         // GET api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<Reservation> Get()
         {
-            return new string[] { "value1", "value2" };
+            return _reservationRepo.Get();
+        }
+
+        [HttpGet("status/{status}")]
+        public List<Reservation> Get(string status)
+        {
+            return _reservationRepo.Get(status);
+        }
+        [HttpGet("guest")]
+        public List<Reservation> Get(string name, string email, string phone)
+        {
+            return _reservationRepo.Get(name, email, phone);
+        }
+        [HttpGet("date")]
+        public List<Reservation> Get(DateTime? toArrivalDate, DateTime? fromArrivalDate)
+        {
+            return _reservationRepo.Get(toArrivalDate, fromArrivalDate);
         }
 
         // GET api/values/5
@@ -46,23 +62,42 @@ namespace HotelR.Controllers
             var room = _roomRepo.Get(value.RoomNumber);
             if (room == null)
                 return BadRequest($"Room {value.RoomNumber} is not exist");
+
+            if (value.ArrivalDate >= value.DepartureDate)
+                return BadRequest("Arrival date can not be the same or after the Depature date");
             
             var guest = _guestRepo.Create(
                 new Guest{Name=value.GuestName, Email=value.GuestEmail,Phone=value.GuestPhone}
             );
-           return Ok(guest);
+
+            var reservation = _reservationRepo.Create(guest, room, value.ArrivalDate, value.DepartureDate);
+
+           return Ok(reservation);
         }
 
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        [HttpPut("{id}/CheckOut/{date}")]
+        public IActionResult CheckOut(int id,DateTime? date)
         {
+            var reservation = _reservationRepo.Get(id);
+            var result = _reservationRepo.CheckOut(reservation, date);
+            return Ok(result);
         }
 
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpPut("{id}/CheckIn")]
+        public IActionResult CheckIn(int id)
         {
+            var reservation = _reservationRepo.Get(id);
+            var result = _reservationRepo.CheckIn(reservation);
+            return Ok(result);
         }
+
+        [HttpPut("{id}/Cancel")]
+        public IActionResult Cancel(int id)
+        {
+            var reservation = _reservationRepo.Get(id);
+           var result =  _reservationRepo.Cancel(reservation);
+            return Ok(result);
+        }
+
     }
 }

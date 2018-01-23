@@ -32,6 +32,8 @@ namespace HotelR
             services.AddDbContext<HotelReservationContext>(options => options.UseSqlServer(connection));
             services.AddScoped<IGuestRepo, GuestRepo>();
             services.AddScoped<IReservationRepo, ReservationRepo>();
+            services.AddScoped<IRoomRepo, RoomRepo>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
