@@ -45,7 +45,7 @@ namespace HotelR.Controllers
            return Ok(reservation);
         }
 
-        [HttpPut("{id}/CheckOut/{date}")]
+        [HttpPut("{id}/CheckOut")]
         public IActionResult CheckOut(int id,DateTime? date)
         {
             var reservation = _reservationRepo.Get(id);

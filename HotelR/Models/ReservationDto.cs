@@ -13,6 +13,7 @@ namespace HotelR.Models
         public DateTime DepartureDate { get; set; }
         [Required]
         public string GuestName { get; set; }
+        [EmailAddress]
         public string GuestEmail { get; set; }
         public string GuestPhone { get; set; }
     }
