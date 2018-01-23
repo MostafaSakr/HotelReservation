@@ -20,6 +20,7 @@ namespace HotelR.Test
             unitOfWorkMocked.Setup(x => x.SaveChanges()).Returns(1);
             guest = new Guest { Name = "sasa", Id = 1 };
             room = new Room { Number = "1", Rate = 100, CancellationFeeNightsCount = 1, DepositFeePercentage = 70 };
+            HotelReservationContext.connection = "x";
         }
 
         [Test]

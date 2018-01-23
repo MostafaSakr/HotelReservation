@@ -22,29 +22,6 @@ namespace HotelR.Controllers
             _roomRepo = roomRepo;
         }
       
-        [HttpGet("status/{status}")]
-        public List<Reservation> Get(string status)
-        {
-            return _reservationRepo.Get(status);
-        }
-        [HttpGet("guest")]
-        public List<Reservation> Get(string name, string email, string phone)
-        {
-            return _reservationRepo.Get(name, email, phone);
-        }
-        [HttpGet("date")]
-        public List<Reservation> Get(DateTime? toArrivalDate, DateTime? fromArrivalDate)
-        {
-            return _reservationRepo.Get(toArrivalDate, fromArrivalDate);
-        }
-
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public IActionResult Get(int id)
-        {
-            return Ok(_reservationRepo.Get(id));
-        }
-
         // POST api/values
         [HttpPost]
         public IActionResult Post([FromBody]ReservationDto value)
@@ -72,6 +49,11 @@ namespace HotelR.Controllers
         public IActionResult CheckOut(int id,DateTime? date)
         {
             var reservation = _reservationRepo.Get(id);
+            if (reservation == null)
+                return BadRequest("reservation not exist");
+            if (reservation.Status != ReservationStatus.CheckedIn.ToString())
+                return BadRequest("unvalid reservation status");
+            
             var result = _reservationRepo.CheckOut(reservation, date);
             return Ok(result);
         }
@@ -80,6 +62,11 @@ namespace HotelR.Controllers
         public IActionResult CheckIn(int id)
         {
             var reservation = _reservationRepo.Get(id);
+            if (reservation == null)
+                return BadRequest("reservation not exist");
+            if (reservation.Status != ReservationStatus.Booked.ToString())
+                return BadRequest("unvalid reservation status");
+            
             var result = _reservationRepo.CheckIn(reservation);
             return Ok(result);
         }
@@ -88,8 +75,36 @@ namespace HotelR.Controllers
         public IActionResult Cancel(int id)
         {
             var reservation = _reservationRepo.Get(id);
+            if (reservation == null)
+                return BadRequest("reservation not exist");
+            if (reservation.Status != ReservationStatus.Booked.ToString())
+                return BadRequest("unvalid reservation status");
+            
            var result =  _reservationRepo.Cancel(reservation);
             return Ok(result);
+        }
+
+        [HttpGet("status/{status}")]
+        public List<Reservation> Get(string status)
+        {
+            return _reservationRepo.Get(status);
+        }
+        [HttpGet("guest")]
+        public List<Reservation> Get(string name, string email, string phone)
+        {
+            return _reservationRepo.Get(name, email, phone);
+        }
+        [HttpGet("date")]
+        public List<Reservation> Get(DateTime? toArrivalDate, DateTime? fromArrivalDate)
+        {
+            return _reservationRepo.Get(toArrivalDate, fromArrivalDate);
+        }
+
+        // GET api/values/5
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
+        {
+            return Ok(_reservationRepo.Get(id));
         }
 
     }

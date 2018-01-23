@@ -10,7 +10,6 @@ namespace HotelR.Services
 {
     public interface IUnitOfWork<TEntity> where TEntity : class
     {
-
         void BulkDelete(IQueryable<TEntity> entities);
         void BulkInsert(IEnumerable<TEntity> entities);
         void Delete(Expression<Func<TEntity, bool>> where);
@@ -24,6 +23,7 @@ namespace HotelR.Services
         void Update(TEntity entity);
         int SaveChanges();
     }
+
     public class UnitOfWork<TEntity> : IUnitOfWork<TEntity> where TEntity : class
     {
         private readonly HotelReservationContext _context;

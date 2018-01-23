@@ -9,18 +9,19 @@ namespace HotelR.Services
         Guest Create(Guest guest);
         GuestAccount GetFees(Reservation reservation);
     }
+
     public class GuestRepo : IGuestRepo
     {
-        private HotelReservationContext _context;
-        public GuestRepo(HotelReservationContext context)
+        private IUnitOfWork<Guest> _context;
+        public GuestRepo(IUnitOfWork<Guest> context)
         {
             _context = context;
         }
         public Guest Create(Guest guest)
         {
-           var result =  _context.Guests.Add(guest);
+           var result =  _context.Insert(guest);
             _context.SaveChanges();
-            guest.Id = result.Entity.Id;
+            guest.Id = result.Id;
             return guest;
         }
         public GuestAccount GetFees(Reservation reservation)

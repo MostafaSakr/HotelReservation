@@ -6,23 +6,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HotelR.Services
 {
-    public interface IReservationRepo
-    {
-        Reservation Book(Guest guest, Room room, DateTime arrivalDate, DateTime depatureDate);
-        Reservation Cancel(Reservation reservation);
-        Reservation Get(int id);
-        Reservation CheckOut(Reservation reservation, DateTime? date);
-        Reservation CheckIn(Reservation reservation);
-        List<Reservation> Get(DateTime? toArrivalDate, DateTime? fromArrivalDate);
-        List<Reservation> Get(string status);
-        List<Reservation> Get(string guestName, string guestEmail, string guestPhone);
-    }
-
+    
     public class ReservationRepo : IReservationRepo
     {
-        private UnitOfWork<Reservation> _context;
+        private IUnitOfWork<Reservation> _context;
 
-        public ReservationRepo(UnitOfWork<Reservation> context)
+        public ReservationRepo(IUnitOfWork<Reservation> context)
         {
             _context = context;
         }
@@ -31,8 +20,8 @@ namespace HotelR.Services
             var fees = (depatureDate - arrivalDate).Days * (room.Rate * room.DepositFeePercentage / 100);
             var reservation = new Reservation
             {
-                Guest = guest,
-                Room = room,
+                GuestId = guest.Id,
+                RoomId = room.Id,
                 ArrivalDate = arrivalDate,
                 DepartureDate = depatureDate,
                 Status = ReservationStatus.Booked.ToString(),

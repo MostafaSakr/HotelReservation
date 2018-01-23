@@ -28,12 +28,14 @@ namespace HotelR
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            var connection = "Password=123;Persist Security Info=True;User ID=task;Initial Catalog=taskDB;Data Source=52.178.217.7";
+            var connection = HotelReservationContext.connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<HotelReservationContext>(options => options.UseSqlServer(connection));
             services.AddScoped<IGuestRepo, GuestRepo>();
             services.AddScoped<IReservationRepo, ReservationRepo>();
             services.AddScoped<IRoomRepo, RoomRepo>();
-
+            services.AddScoped<IUnitOfWork<Reservation>, UnitOfWork<Reservation>>();
+            services.AddScoped<IUnitOfWork<Room>, UnitOfWork<Room>>();
+            services.AddScoped<IUnitOfWork<Guest>, UnitOfWork<Guest>>(); 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

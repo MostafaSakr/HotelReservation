@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HotelR.Controllers
 {
-    [Route("api/gest")]
+    [Route("api/guest")]
     public class GuestController : Controller
     {
         private IReservationRepo _reservationRepo;
@@ -20,12 +20,6 @@ namespace HotelR.Controllers
             _reservationRepo = reservationRepo;
             _guestRepo = guestRepo;
             _roomRepo = roomRepo;
-        }
-
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
         }
 
         // GET api/values/5
