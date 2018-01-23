@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace HotelR.Migrations
 {
-    public partial class InitialCreate2 : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -32,9 +32,9 @@ namespace HotelR.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CancellationFeeNightsCount = table.Column<int>(nullable: false),
                     DepositFeePercentage = table.Column<double>(nullable: false),
-                    Description = table.Column<string>(nullable: true),
                     Number = table.Column<string>(nullable: true),
-                    Rate = table.Column<double>(nullable: false)
+                    Rate = table.Column<double>(nullable: false),
+                    Type = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -49,9 +49,10 @@ namespace HotelR.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ArrivalDate = table.Column<DateTime>(nullable: false),
                     DepartureDate = table.Column<DateTime>(nullable: false),
+                    Fees = table.Column<double>(nullable: false),
                     GuestId = table.Column<int>(nullable: false),
-                    ReservationStatus = table.Column<int>(nullable: false),
-                    RoomId = table.Column<int>(nullable: false)
+                    RoomId = table.Column<int>(nullable: false),
+                    Status = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

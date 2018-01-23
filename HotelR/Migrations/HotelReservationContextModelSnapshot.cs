@@ -71,11 +71,11 @@ namespace HotelR.Migrations
 
                     b.Property<double>("DepositFeePercentage");
 
-                    b.Property<string>("Description");
-
                     b.Property<string>("Number");
 
                     b.Property<double>("Rate");
+
+                    b.Property<string>("Type");
 
                     b.HasKey("Id");
 

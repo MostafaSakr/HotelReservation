@@ -11,8 +11,8 @@ using System;
 namespace HotelR.Migrations
 {
     [DbContext(typeof(HotelReservationContext))]
-    [Migration("20180123000713_addFees")]
-    partial class addFees
+    [Migration("20180123072842_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -72,11 +72,11 @@ namespace HotelR.Migrations
 
                     b.Property<double>("DepositFeePercentage");
 
-                    b.Property<string>("Description");
-
                     b.Property<string>("Number");
 
                     b.Property<double>("Rate");
+
+                    b.Property<string>("Type");
 
                     b.HasKey("Id");
 

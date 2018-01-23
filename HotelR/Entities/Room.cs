@@ -16,7 +16,7 @@ namespace HotelR.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Number { get; set; }
-        public string Description { get; set; }
+        public string Type { get; set; }
         public double Rate { get; set; }
         public double DepositFeePercentage { get; set; }
         public int CancellationFeeNightsCount { get; set; }

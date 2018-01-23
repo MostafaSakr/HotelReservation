@@ -63,7 +63,10 @@ namespace HotelR.Services
         public Reservation Cancel(Reservation reservation)
         {
             var room = reservation.Room;
-            var fees = room.CancellationFeeNightsCount * room.Rate;
+            var cancelPelanty = room.CancellationFeeNightsCount;
+            if (reservation.Days() < cancelPelanty)
+                cancelPelanty = reservation.Days();
+            var fees = cancelPelanty * room.Rate;
             reservation.Fees = fees;
             reservation.Status = ReservationStatus.Canceled.ToString();
 
