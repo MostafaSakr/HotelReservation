@@ -13,4 +13,7 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.5.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\HotelR.csproj" />
+  </ItemGroup>
 </Project>

@@ -39,7 +39,5 @@ namespace HotelR.Controllers
             return Ok(account);
         }
 
-       
-
     }
 }

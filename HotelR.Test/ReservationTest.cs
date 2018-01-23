@@ -1,11 +1,15 @@
 using System;
+using System.Linq;
+using HotelR.Services;
+using Moq;
+using NUnit.Framework;
 
 namespace HotelR.Test
 {
     [TestFixture]
-    public class BoReservationTest
+    public class ReservationTest
     {
-        private Mock<IUnitOfWork> unitOfWorkMocked;
+        private Mock<IReservationRepo> unitOfWorkMocked;
         [SetUp]
         public void Setup()
         {

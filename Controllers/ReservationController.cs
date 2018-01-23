@@ -22,7 +22,6 @@ namespace HotelR.Controllers
             _roomRepo = roomRepo;
         }
 
-        // GET api/values
         [HttpGet]
         public IEnumerable<Reservation> Get()
         {
@@ -47,9 +46,9 @@ namespace HotelR.Controllers
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult Get(int id)
         {
-            return "value";
+            return Ok(_reservationRepo.Get(id));
         }
 
         // POST api/values
