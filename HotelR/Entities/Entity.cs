@@ -10,6 +10,11 @@ namespace HotelR.Entities
 {
     public class HotelReservationContext : DbContext
     {
+        public HotelReservationContext() : base(new DbContextOptionsBuilder()
+            .UseSqlServer("Password=123;Persist Security Info=True;User ID=task;Initial Catalog=taskDB;Data Source=52.178.217.7").Options)
+        {
+        }
+
         public HotelReservationContext(DbContextOptions<HotelReservationContext> options)
             : base(options)
         { }

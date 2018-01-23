@@ -21,13 +21,7 @@ namespace HotelR.Controllers
             _guestRepo = guestRepo;
             _roomRepo = roomRepo;
         }
-
-        [HttpGet]
-        public IEnumerable<Reservation> Get()
-        {
-            return _reservationRepo.Get();
-        }
-
+      
         [HttpGet("status/{status}")]
         public List<Reservation> Get(string status)
         {
@@ -69,7 +63,7 @@ namespace HotelR.Controllers
                 new Guest{Name=value.GuestName, Email=value.GuestEmail,Phone=value.GuestPhone}
             );
 
-            var reservation = _reservationRepo.Create(guest, room, value.ArrivalDate, value.DepartureDate);
+            var reservation = _reservationRepo.Book(guest, room, value.ArrivalDate, value.DepartureDate);
 
            return Ok(reservation);
         }
